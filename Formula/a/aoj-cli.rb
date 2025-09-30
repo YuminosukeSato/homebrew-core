@@ -9,13 +9,7 @@ class AojCli < Formula
   depends_on "go" => :build
 
   def install
-    system "go", "build", *std_go_args(ldflags: "-s -w"), "./cmd/aojcli"
-
-    # Rename the binary to 'aoj'
-    bin.install "aojcli" => "aoj"
-
-    # Generate shell completions if available
-    generate_completions_from_executable(bin/"aoj", "completion") if (bin/"aoj").exist?
+    system "go", "build", *std_go_args(output: bin/"aoj", ldflags: "-s -w"), "./cmd/aojcli"
   end
 
   test do
